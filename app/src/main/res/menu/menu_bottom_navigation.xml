@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/tab_menu_home"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="首页" />
+        android:id="@+id/tab_menu_news"
+        android:icon="@mipmap/github"
+        android:title="News" />
     <item
-        android:id="@+id/tab_menu_discovery"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="发现" />
+        android:id="@+id/tab_menu_issue"
+        android:icon="@mipmap/issue"
+        android:title="Issue" />
     <item
-        android:id="@+id/tab_menu_attention"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="关注" />
+        android:id="@+id/tab_menu_trending"
+        android:icon="@mipmap/trending_up"
+        android:title="Trending" />
+    <item
+        android:id="@+id/tab_menu_pr"
+        android:icon="@mipmap/pr"
+        android:title="PR" />
     <item
         android:id="@+id/tab_menu_profile"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="我的" />
+        android:icon="@mipmap/me"
+        android:title="Me" />
 
 </menu>
 

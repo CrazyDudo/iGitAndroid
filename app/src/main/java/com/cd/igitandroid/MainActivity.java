@@ -16,24 +16,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        BottomNavigationView bnv_001 = findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
         //为底部导航设置条目选中监听
-        bnv_001.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(
                     @NonNull
                             MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.tab_menu_home:
+                    case R.id.tab_menu_news:
 //                        tv_whichItemSelected.setText(item.getTitle());
                         break;
-                    case R.id.tab_menu_discovery:
+                    case R.id.tab_menu_issue:
 //                        tv_whichItemSelected.setText(item.getTitle());
                         break;
-                    case R.id.tab_menu_attention:
+                    case R.id.tab_menu_trending:
 //                        tv_whichItemSelected.setText(item.getTitle());
                         break;
+                    case R.id.tab_menu_pr:
+//                        tv_whichItemSelected.setText(item.getTitle());
+                        break;
+
                     case R.id.tab_menu_profile:
 //                        tv_whichItemSelected.setText(item.getTitle());
                         break;
@@ -48,6 +52,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //默认选中底部导航栏中的第三个
-        bnv_001.getMenu().getItem(2).setChecked(true);
+        bottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
 }
