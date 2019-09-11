@@ -17,7 +17,7 @@
         android:icon="@mipmap/pr"
         android:title="PR" />
     <item
-        android:id="@+id/tab_menu_profile"
+        android:id="@+id/tab_menu_me"
         android:icon="@mipmap/me"
         android:title="Me" />
 
