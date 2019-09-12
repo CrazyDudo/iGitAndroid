@@ -1,9 +1,5 @@
 package com.cd.igitandroid.ui.homepage;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,7 +11,12 @@ import com.cd.igitandroid.ui.pr.PullRequestFragment;
 import com.cd.igitandroid.ui.trending.TrendingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 public class HomeActivity extends AppCompatActivity {
+
 
     private BottomNavigationView mBottomNavigationView;
 
@@ -25,6 +26,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         init();
     }
 
@@ -73,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         //default
-        mBottomNavigationView.getMenu().getItem(2).setChecked(true);
+//        mBottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
 
     private Fragment[] initFragment() {

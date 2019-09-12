@@ -1,8 +1,5 @@
 package com.cd.igitandroid.data.network;
 
-import com.cd.igitandroid.data.network.model.TrendingBean;
-
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,7 +26,7 @@ public class ApiManager {
     }
 
 
-    public GithubApi getApiHelper() {
+    public GithubApi getTrendingDataService() {
 
         if (mApiHelper == null) {
             synchronized (ApiManager.class) {

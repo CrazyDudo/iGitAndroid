@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="#44ff0000"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="author/name" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="description for this project" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_current_period_stars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/ic_fire"
+                android:drawablePadding="3dp"
+                android:text="100" />
+
+            <TextView
+                android:id="@+id/tv_star"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/ic_star"
+                android:drawablePadding="3dp"
+                android:text="100" />
+
+            <TextView
+                android:id="@+id/tv_fork"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/ic_fork"
+                android:drawablePadding="3dp"
+                android:text="100" />
+
+
+            <TextView
+                android:id="@+id/tv_language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:drawableLeft="@mipmap/ic_language"
+                android:drawablePadding="3dp"
+                android:text="Java" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_builders"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_first"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+
+            <ImageView
+                android:id="@+id/img_second"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+
+            <ImageView
+                android:id="@+id/img_third"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+
+            <ImageView
+                android:id="@+id/img_forth"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+
+            <ImageView
+                android:id="@+id/img_fifth"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

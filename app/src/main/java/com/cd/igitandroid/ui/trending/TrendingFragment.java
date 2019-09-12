@@ -1,34 +1,40 @@
 package com.cd.igitandroid.ui.trending;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.cd.igitandroid.R;
+import com.cd.igitandroid.data.network.model.TrendingBean;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.Subject;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.cd.igitandroid.R;
-import com.cd.igitandroid.data.network.ApiManager;
-import com.cd.igitandroid.data.network.model.TrendingBean;
-import com.orhanobut.logger.Logger;
-
-import java.util.List;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TrendingFragment extends Fragment {
+public class TrendingFragment extends Fragment implements TrendingContract.View {
 
+    private RecyclerView recyclerView;
+    private List<TrendingBean> mDatas;
+    private ProgressDialog mProgressDialog;
+
+    private TrendingContract.Presenter mPresenter;
+    private TrendingAdapter mAdapter;
 
     public TrendingFragment() {
         // Required empty public constructor
@@ -38,6 +44,7 @@ public class TrendingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trending, container, false);
     }
@@ -45,58 +52,131 @@ public class TrendingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ApiManager.getInstance()
-                .getApiHelper()
-                .getTrendingData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subject<List<TrendingBean>>() {
-                    @Override
-                    protected void subscribeActual(Observer<? super List<TrendingBean>> observer) {
+        //create presenter
+        new TrendingPresenter(this);
+        initData();
+        initView(view);
+    }
 
-                    }
 
-                    @Override
-                    public boolean hasObservers() {
-                        return false;
-                    }
+    private void initData() {
+        mPresenter.requestData();
+    }
 
-                    @Override
-                    public boolean hasThrowable() {
-                        return false;
-                    }
+    private void initView(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view);
+        initRecyclerView();
+    }
 
-                    @Override
-                    public boolean hasComplete() {
-                        return false;
-                    }
+    private void initRecyclerView() {
 
-                    @Override
-                    public Throwable getThrowable() {
-                        return null;
-                    }
-
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<TrendingBean> trendingBeans) {
-                        Logger.d(trendingBeans);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        Logger.e(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        //设置布局管理器
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //设置Item增加、移除动画
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //添加分割线
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
     }
+
+    @Override
+    public void onLoading() {
+        mProgressDialog = ProgressDialog.show(getContext(), "Loading...", "");
+    }
+
+    @Override
+    public void onRequestSuccess(List<TrendingBean> trendingBeanList) {
+
+        mProgressDialog.dismiss();
+        mDatas = trendingBeanList;
+        //设置adapter
+        recyclerView.setAdapter(mAdapter = new TrendingAdapter());
+    }
+
+
+    @Override
+    public void onError(String error) {
+        mProgressDialog.dismiss();
+        Toast.makeText(getContext(), "network error :" + error, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void setPresenter(TrendingContract.Presenter presenter) {
+        this.mPresenter = presenter;
+    }
+
+
+    class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.MyViewHolder> {
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_trending, parent, false));
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+            TrendingBean trendingBean = mDatas.get(position);
+            holder.mTvName.setText(trendingBean.getAuthor() + "/" + trendingBean.getName());
+            holder.mTvDesc.setText(trendingBean.getDescription());
+            holder.mTvCurrentStars.setText(trendingBean.getCurrentPeriodStars() + "");
+            holder.mTvStar.setText(trendingBean.getStars() + "");
+            holder.mTvFork.setText(trendingBean.getForks() + "");
+            holder.mTvLanguage.setText(trendingBean.getLanguage());
+
+            List<TrendingBean.BuiltByBean> builtBy = trendingBean.getBuiltBy();
+//            List<ImageView> imageViews = new ArrayList<>();
+//            imageViews.add(holder.mIvFirst);
+//            imageViews.add(holder.mIvSecond);
+//            imageViews.add(holder.mIvThird);
+//            imageViews.add(holder.mIvForth);
+//            imageViews.add(holder.mIvFifth);
+            ImageView[] imageViews = {holder.mIvFirst,holder.mIvSecond,holder.mIvThird,holder.mIvForth,holder.mIvFifth};
+            for (int i = 0; i < trendingBean.getBuiltBy().size(); i++) {
+                Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViews[i]);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return mDatas.size();
+        }
+
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            TextView mTvName;
+            private final TextView mTvDesc;
+            private final TextView mTvStar;
+            private final TextView mTvFork;
+            private final TextView mTvLanguage;
+            private final TextView mTvCurrentStars;
+            private final ImageView mIvFirst;
+            private final ImageView mIvSecond;
+            private final ImageView mIvThird;
+            private final ImageView mIvForth;
+            private final ImageView mIvFifth;
+
+
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+                mTvName = itemView.findViewById(R.id.tv_name);
+                mTvDesc = itemView.findViewById(R.id.tv_desc);
+                mTvCurrentStars = itemView.findViewById(R.id.tv_current_period_stars);
+                mTvStar = itemView.findViewById(R.id.tv_star);
+                mTvFork = itemView.findViewById(R.id.tv_fork);
+                mTvLanguage = itemView.findViewById(R.id.tv_language);
+                mIvFirst = itemView.findViewById(R.id.img_first);
+                mIvSecond = itemView.findViewById(R.id.img_second);
+                mIvThird = itemView.findViewById(R.id.img_third);
+                mIvForth = itemView.findViewById(R.id.img_forth);
+                mIvFifth = itemView.findViewById(R.id.img_fifth);
+
+            }
+        }
+
+    }
+
+
 }
+
