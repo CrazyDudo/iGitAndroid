@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.cd.igitandroid.R;
 import com.cd.igitandroid.data.network.model.TrendingBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -127,15 +128,16 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
             holder.mTvLanguage.setText(trendingBean.getLanguage());
 
             List<TrendingBean.BuiltByBean> builtBy = trendingBean.getBuiltBy();
-//            List<ImageView> imageViews = new ArrayList<>();
-//            imageViews.add(holder.mIvFirst);
-//            imageViews.add(holder.mIvSecond);
-//            imageViews.add(holder.mIvThird);
-//            imageViews.add(holder.mIvForth);
-//            imageViews.add(holder.mIvFifth);
+            List<ImageView> imageViewList = new ArrayList<>();
+            imageViewList.add(holder.mIvFirst);
+            imageViewList.add(holder.mIvSecond);
+            imageViewList.add(holder.mIvThird);
+            imageViewList.add(holder.mIvForth);
+            imageViewList.add(holder.mIvFifth);
             ImageView[] imageViews = {holder.mIvFirst,holder.mIvSecond,holder.mIvThird,holder.mIvForth,holder.mIvFifth};
             for (int i = 0; i < trendingBean.getBuiltBy().size(); i++) {
-                Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViews[i]);
+//                Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViews[i]);
+                Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViewList.get(i));
             }
         }
 
