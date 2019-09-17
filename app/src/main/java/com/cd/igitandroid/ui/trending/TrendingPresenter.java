@@ -10,7 +10,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.Subject;
 
 /**
  * Created by ruandong on 2019/9/12.
@@ -33,32 +32,7 @@ public class TrendingPresenter implements TrendingContract.Presenter {
                 .getTrendingData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subject<List<TrendingBean>>() {
-                    @Override
-                    protected void subscribeActual(Observer<? super List<TrendingBean>> observer) {
-
-                    }
-
-                    @Override
-                    public boolean hasObservers() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean hasThrowable() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean hasComplete() {
-                        return false;
-                    }
-
-                    @Override
-                    public Throwable getThrowable() {
-                        return null;
-                    }
-
+                .subscribe(new Observer<List<TrendingBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -67,9 +41,7 @@ public class TrendingPresenter implements TrendingContract.Presenter {
                     @Override
                     public void onNext(List<TrendingBean> trendingBeans) {
                         Logger.d(trendingBeans);
-
                         mView.onRequestSuccess(trendingBeans);
-
                     }
 
                     @Override

@@ -79,7 +79,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private Fragment[] initFragment() {
-
         Fragment fragments[] = new Fragment[5];
         fragments[0] = new NewsFragment();
         fragments[1] = new IssueFragment();
