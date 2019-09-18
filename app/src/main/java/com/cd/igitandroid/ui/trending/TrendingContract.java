@@ -11,8 +11,10 @@ import java.util.List;
  */
 public interface TrendingContract {
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<View> {
         void requestData();
+
+        void takeView(View view);
     }
 
     interface View extends BaseView<Presenter> {

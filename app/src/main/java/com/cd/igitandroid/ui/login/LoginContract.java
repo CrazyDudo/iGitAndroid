@@ -9,8 +9,9 @@ import com.cd.igitandroid.ui.base.BaseView;
  */
 public class LoginContract {
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<View> {
         void login(String userName,String passwrod);
+        void takeView(LoginContract.View view);
     }
     interface View extends BaseView<Presenter> {
         void onLoginSuccess(LoginResponseBean loginResponseBean);

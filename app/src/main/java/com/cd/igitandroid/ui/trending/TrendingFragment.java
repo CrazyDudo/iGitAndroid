@@ -13,9 +13,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.cd.igitandroid.R;
 import com.cd.igitandroid.data.network.model.TrendingBean;
+import com.cd.igitandroid.di.component.DaggerActivityComponent;
+import com.cd.igitandroid.di.module.ActivityModule;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,11 +34,15 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class TrendingFragment extends Fragment implements TrendingContract.View {
 
+
+    @Inject
+    TrendingPresenter mPresenter;
+
     private RecyclerView recyclerView;
     private List<TrendingBean> mDatas;
     private ProgressDialog mProgressDialog;
 
-    private TrendingContract.Presenter mPresenter;
+
     private TrendingAdapter mAdapter;
 
     public TrendingFragment() {
@@ -54,7 +62,10 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //create presenter
-        new TrendingPresenter(this);
+        DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule())
+                .build()
+                .inject(this);
         initData();
         initView(view);
     }
@@ -65,6 +76,7 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
     }
 
     private void initView(View view) {
+        mPresenter.takeView(this);
         recyclerView = view.findViewById(R.id.recycler_view);
         initRecyclerView();
     }
@@ -82,7 +94,7 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
 
     @Override
     public void onLoading() {
-        mProgressDialog = ProgressDialog.show(getContext(), "Loading...", "");
+        mProgressDialog = ProgressDialog.show(getContext(), null, "Loading...");
     }
 
     @Override
@@ -101,11 +113,6 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
         Toast.makeText(getContext(), "network error :" + error, Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public void setPresenter(TrendingContract.Presenter presenter) {
-        this.mPresenter = presenter;
-    }
 
 
     class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.MyViewHolder> {

@@ -38,6 +38,9 @@ dependencies {
     //DI
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    implementation "com.google.dagger:dagger:2.8"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
     //network
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     //rx
@@ -50,5 +53,6 @@ dependencies {
     //image loading
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
 
 }

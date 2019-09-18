@@ -18,6 +18,4 @@ package com.cd.igitandroid.ui.base;
 
 public interface BaseView<T> {
 
-    void setPresenter(T presenter);
-
 }

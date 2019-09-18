@@ -19,10 +19,10 @@ public class TrendingPresenter implements TrendingContract.Presenter {
     private TrendingContract.View mView;
 
 
-    public TrendingPresenter(TrendingContract.View view) {
-        mView = view;
-        mView.setPresenter(this);
-    }
+//    public TrendingPresenter(TrendingContract.View view) {
+//        mView = view;
+//        mView.setPresenter(this);
+//    }
 
     @Override
     public void requestData() {
@@ -58,7 +58,12 @@ public class TrendingPresenter implements TrendingContract.Presenter {
     }
 
     @Override
-    public void start() {
+    public void takeView(TrendingContract.View view) {
+        mView = view;
+    }
+
+    @Override
+    public void dropView() {
 
     }
 }

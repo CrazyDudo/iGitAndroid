@@ -11,8 +11,15 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     }
 
+
+
     @Override
-    public void start() {
+    public void takeView(Object view) {
+
+    }
+
+    @Override
+    public void dropView() {
 
     }
 }

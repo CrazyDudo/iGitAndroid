@@ -16,13 +16,9 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View mView;
 
-    public LoginPresenter(LoginContract.View view) {
-        mView = view;
-        mView.setPresenter(this);
-    }
-
     @Override
     public void login(String userName, String password) {
+        mView.onLoading();
         if (userName.isEmpty() || password.isEmpty()) {
             mView.onLoginError("user name or password cannot be empty");
             return;
@@ -60,8 +56,14 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     }
 
+
     @Override
-    public void start() {
+    public void takeView(LoginContract.View view) {
+        mView = view;
+    }
+
+    @Override
+    public void dropView() {
 
     }
 }
