@@ -66,8 +66,8 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
                 .activityModule(new ActivityModule())
                 .build()
                 .inject(this);
-        initData();
         initView(view);
+        initData();
     }
 
 
