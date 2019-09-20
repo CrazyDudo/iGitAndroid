@@ -2,6 +2,7 @@ package com.cd.igitandroid.di.component;
 
 import com.cd.igitandroid.di.module.ActivityModule;
 import com.cd.igitandroid.ui.login.LoginActivity;
+import com.cd.igitandroid.ui.news.NewsFragment;
 import com.cd.igitandroid.ui.trending.TrendingFragment;
 
 import dagger.Component;
@@ -17,5 +18,7 @@ public interface ActivityComponent {
     void inject(LoginActivity activity);
 
     void inject(TrendingFragment fragment);
+
+    void inject(NewsFragment fragment);
 
 }

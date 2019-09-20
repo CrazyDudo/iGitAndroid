@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cd.igitandroid.R;
@@ -13,6 +12,7 @@ import com.cd.igitandroid.data.network.model.LoginResponseBean;
 import com.cd.igitandroid.di.component.DaggerActivityComponent;
 import com.cd.igitandroid.di.module.ActivityModule;
 import com.cd.igitandroid.ui.homepage.HomeActivity;
+import com.google.android.material.textfield.TextInputEditText;
 
 import javax.inject.Inject;
 
@@ -25,16 +25,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Inject
     LoginPresenter mPresenter;
+    @BindView(R.id.edt_user_name)
+    TextInputEditText edtUserName;
+    @BindView(R.id.edt_password)
+    TextInputEditText edtPassword;
+    @BindView(R.id.btn_login)
+    Button btnLogin;
 
 
     private ProgressDialog mProgressDialog;
 
-    @BindView(R.id.edt_password)
-    EditText edtPassword;
-    @BindView(R.id.edt_user_name)
-    EditText edtUserName;
-    @BindView(R.id.btn_login)
-    Button btnLogin;
+
 //    private LoginContract.Presenter mPresenter;
 
     @Override

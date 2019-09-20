@@ -2,7 +2,6 @@ package com.cd.igitandroid.data.network;
 
 import java.io.IOException;
 
-import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -17,8 +16,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManager {
 
 
-    private GithubApi mApiHelper;
-    private TrendingApi mTrendingApi;
+    private LoginService mLoginService;
+    private TrendingService mTrendingService;
+    private UserService mUserService;
     private static ApiManager mApiManager;
 
     public static ApiManager getInstance() {
@@ -34,28 +34,49 @@ public class ApiManager {
         return mApiManager;
     }
 
-    public TrendingApi getTrendingDataService() {
 
-        if (mTrendingApi == null) {
+    public UserService getUserService() {
+
+        if (mUserService == null) {
             synchronized (ApiManager.class) {
-                if (mTrendingApi == null) {
-                    mTrendingApi = new Retrofit.Builder()
+                if (mUserService == null) {
+                    mUserService = new Retrofit.Builder()
+                            .baseUrl(ApiEndPoint.GITHUB_API_BASE_URL)
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+                            .create(UserService.class);
+
+                }
+            }
+        }
+
+        return mUserService;
+    }
+
+
+    public TrendingService getTrendingDataService() {
+
+        if (mTrendingService == null) {
+            synchronized (ApiManager.class) {
+                if (mTrendingService == null) {
+                    mTrendingService = new Retrofit.Builder()
                             .baseUrl(ApiEndPoint.GITHUB_TRENDING_URL)
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
                             .build()
-                            .create(TrendingApi.class);
+                            .create(TrendingService.class);
                 }
             }
         }
-        return mTrendingApi;
+        return mTrendingService;
     }
 
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-    public static OkHttpClient getClient(String username, String password) {
-        String credentials = Credentials.basic(username, password);
+    public static OkHttpClient getClient(String credentials) {
+
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Interceptor.Chain chain) throws IOException {
@@ -77,22 +98,23 @@ public class ApiManager {
     }
 
 
-    public GithubApi getLoginService(String user, String password) {
-        if (mApiHelper == null) {
+    public LoginService getLoginService(String credentials) {
+        if (mLoginService == null) {
             synchronized (ApiManager.class) {
 
-                if (mApiHelper == null) {
-                    mApiHelper = new Retrofit.Builder()
+                if (mLoginService == null) {
+                    mLoginService = new Retrofit.Builder()
                             .baseUrl(ApiEndPoint.GITHUB_API_BASE_URL)
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
-                            .client(getClient(user, password))
+                            .client(getClient(credentials))
                             .build()
-                            .create(GithubApi.class);
+                            .create(LoginService.class);
                 }
             }
         }
-        return mApiHelper;
+        return mLoginService;
     }
+
 
 }

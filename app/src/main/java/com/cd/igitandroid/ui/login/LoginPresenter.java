@@ -8,6 +8,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Credentials;
 
 /**
  * Created by ruandong on 2019/9/16.
@@ -24,8 +25,10 @@ public class LoginPresenter implements LoginContract.Presenter {
             return;
         }
 
+        String basic = Credentials.basic(userName, password);
+
         ApiManager.getInstance()
-                .getLoginService("crazydudo", "cd10044225")
+                .getLoginService(basic)
                 .login()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -40,6 +43,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                         Logger.d(loginResponseBean);
                         mView.onLoginSuccess(loginResponseBean);
+
                     }
 
                     @Override

@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 /**
  * Created by ruandong on 2019/9/11.
  */
-public interface TrendingApi {
+public interface TrendingService {
     @GET("/")
     Observable<List<TrendingBean>> getTrendingData();
 

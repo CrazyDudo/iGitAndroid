@@ -66,6 +66,7 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
                 .activityModule(new ActivityModule())
                 .build()
                 .inject(this);
+        mPresenter.takeView(this);
         initView(view);
         initData();
     }
@@ -75,8 +76,12 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
         mPresenter.requestData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void initView(View view) {
-        mPresenter.takeView(this);
         recyclerView = view.findViewById(R.id.recycler_view);
         initRecyclerView();
     }
@@ -114,7 +119,6 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
     }
 
 
-
     class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.MyViewHolder> {
         @NonNull
         @Override
@@ -141,7 +145,7 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
             imageViewList.add(holder.mIvThird);
             imageViewList.add(holder.mIvForth);
             imageViewList.add(holder.mIvFifth);
-            ImageView[] imageViews = {holder.mIvFirst,holder.mIvSecond,holder.mIvThird,holder.mIvForth,holder.mIvFifth};
+            ImageView[] imageViews = {holder.mIvFirst, holder.mIvSecond, holder.mIvThird, holder.mIvForth, holder.mIvFifth};
             for (int i = 0; i < trendingBean.getBuiltBy().size(); i++) {
 //                Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViews[i]);
                 Glide.with(holder.itemView).load(trendingBean.getBuiltBy().get(i).getAvatar()).into(imageViewList.get(i));
