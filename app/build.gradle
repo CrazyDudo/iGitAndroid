@@ -63,5 +63,7 @@ dependencies {
 
     //widget
 //    implementation 'top.androidman:superbutton:1.1.1'
+    //lottie
+    implementation 'com.airbnb.android:lottie:3.0.7'
 
 }

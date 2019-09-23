@@ -13,6 +13,7 @@
         android:icon="@mipmap/trending_up"
         android:title="Trending" />
     <item
+        android:visible="false"
         android:id="@+id/tab_menu_pr"
         android:icon="@mipmap/pr"
         android:title="PR" />

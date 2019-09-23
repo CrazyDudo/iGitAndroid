@@ -117,4 +117,23 @@ public class ApiManager {
     }
 
 
+    private SearchService mSearchIssueService;
+
+    //search issue
+    public SearchService getSerchIssueService() {
+
+        if (mSearchIssueService == null) {
+            synchronized (ApiManager.class) {
+                if (mSearchIssueService == null) {
+                    mSearchIssueService = new Retrofit.Builder()
+                            .baseUrl(ApiEndPoint.GITHUB_API_BASE_URL)
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+                            .create(SearchService.class);
+                }
+            }
+        }
+        return mSearchIssueService;
+    }
 }

@@ -1,6 +1,7 @@
 package com.cd.igitandroid.di.component;
 
 import com.cd.igitandroid.di.module.ActivityModule;
+import com.cd.igitandroid.ui.issue.IssueFragment;
 import com.cd.igitandroid.ui.login.LoginActivity;
 import com.cd.igitandroid.ui.news.NewsFragment;
 import com.cd.igitandroid.ui.trending.TrendingFragment;
@@ -20,5 +21,8 @@ public interface ActivityComponent {
     void inject(TrendingFragment fragment);
 
     void inject(NewsFragment fragment);
+
+
+    void inject(IssueFragment fragment);
 
 }

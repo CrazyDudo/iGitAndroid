@@ -63,9 +63,9 @@ public class HomeActivity extends AppCompatActivity {
                         fragment = mTrendingFragment;
 
                         break;
-                    case R.id.tab_menu_pr:
-                        fragment = mPullRequestFragment;
-                        break;
+//                    case R.id.tab_menu_pr:
+//                        fragment = mPullRequestFragment;
+//                        break;
 
                     case R.id.tab_menu_me:
                         fragment = mMeFragment;
