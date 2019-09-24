@@ -8,41 +8,46 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.cd.igitandroid.R;
 import com.cd.igitandroid.data.network.model.IssueSearchResultBean;
 import com.cd.igitandroid.di.component.DaggerActivityComponent;
 import com.cd.igitandroid.di.module.ActivityModule;
+import com.cd.igitandroid.ui.base.BaseFragment;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * issue fragment
  */
-public class IssueFragment extends Fragment implements IssueContract.View {
+public class IssueFragment extends BaseFragment implements IssueContract.View {
 
+
+    @BindView(R.id.loading_animation)
+    LottieAnimationView loadingAnimation;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
     private IssueSearchResultBean mData;
 
     @Inject
     IssuePresenter mPresenter;
-    private RecyclerView mRecyclerView;
+
 
     public IssueFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_issue, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_issue;
     }
 
 
@@ -50,38 +55,48 @@ public class IssueFragment extends Fragment implements IssueContract.View {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+    }
+
+    @Override
+    protected void setupFragmentComponent() {
         DaggerActivityComponent
                 .builder()
                 .activityModule(new ActivityModule())
                 .build()
                 .inject(this);
-        mPresenter.takeView(this);
-        mPresenter.loadData(1);
-
-        initView(view);
     }
 
-    private void initView(View view) {
-
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-
+    @Override
+    protected void initView() {
+        mPresenter.takeView(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
+    protected void initData() {
+        mPresenter.loadData(1);
+    }
+
+    @Override
     public void onSuccess(IssueSearchResultBean issueSearchResultBean) {
+        loadingAnimation.setVisibility(View.GONE);
         mData = issueSearchResultBean;
         mRecyclerView.setAdapter(new MyAdapter());
     }
 
     @Override
     public void onLoading() {
-
+        loadingAnimation.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onError(String error) {
+        loadingAnimation.setVisibility(View.GONE);
+    }
 
+    @OnClick(R.id.loading_animation)
+    public void onViewClicked() {
     }
 
 

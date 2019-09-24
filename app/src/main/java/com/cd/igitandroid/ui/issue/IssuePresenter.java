@@ -28,6 +28,7 @@ public class IssuePresenter implements IssueContract.Presenter {
 
     @Override
     public void loadData(int page) {
+        mView.onLoading();
 //    https://api.github.com/search/issues?sort=created&page=1&q=user:ThirtyDegreesRay+state:open&order=desc
         ApiManager.getInstance()
                 .getSerchIssueService()
@@ -42,14 +43,12 @@ public class IssuePresenter implements IssueContract.Presenter {
 
                     @Override
                     public void onNext(Response<IssueSearchResultBean> searchResultBeanResponse) {
-
                         Logger.d(searchResultBeanResponse);
                         mView.onSuccess(searchResultBeanResponse.body());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                         Logger.e(e.getMessage());
                         mView.onError(e.getMessage());
                     }

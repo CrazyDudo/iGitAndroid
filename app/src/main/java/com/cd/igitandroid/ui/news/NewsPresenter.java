@@ -22,6 +22,7 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     @Override
     public void requestEventData(int page) {
+        mView.onLoading();
         ApiManager.getInstance().getUserService()
                 .getNewsEvent(true, "crazydudo", page)
                 .subscribeOn(Schedulers.io())
@@ -46,6 +47,7 @@ public class NewsPresenter implements NewsContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
 
+                        mView.onError(e.getMessage());
                         Logger.e(e.getMessage());
                     }
 

@@ -1,86 +1,79 @@
 package com.cd.igitandroid.ui.news;
 
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.cd.igitandroid.R;
 import com.cd.igitandroid.data.network.model.EventBean;
 import com.cd.igitandroid.di.component.DaggerActivityComponent;
 import com.cd.igitandroid.di.module.ActivityModule;
+import com.cd.igitandroid.ui.base.BaseFragment;
 import com.cd.igitandroid.utils.DateUtil;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment implements NewsContract.View {
+public class NewsFragment extends BaseFragment implements NewsContract.View {
 
     @Inject
     NewsPresenter mPresenter;
+    @BindView(R.id.loading_animation)
+    LottieAnimationView loadingAnimation;
+    @BindView(R.id.recycler_view_news)
+    RecyclerView mRecyclerViewNews;
 
-    //    @BindView(R.id.recycler_view_news)
-//    RecyclerView recyclerViewNews;
     private ArrayList<EventBean> mData;
-    private RecyclerView mRecyclerViewNews;
-
 
     public NewsFragment() {
         // Required empty public constructor
-        Logger.d("constructor NewsFragment");
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_news;
+    }
+
+    @Override
+    protected void setupFragmentComponent() {
         DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule())
                 .build()
                 .inject(this);
-        mPresenter.takeView(this);
-        initData();
 
-        initRecyclerView(view);
-        Logger.d("onCreateView");
+    }
+
+    @Override
+    protected void initView() {
+        mPresenter.takeView(this);
+        initRecyclerView();
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        Logger.d("onResume");
     }
 
-    private void initRecyclerView(View view) {
-
-        mRecyclerViewNews = view.findViewById(R.id.recycler_view_news);
-
-
+    private void initRecyclerView() {
         //设置布局管理器
         mRecyclerViewNews.setLayoutManager(new LinearLayoutManager(getContext()));
         //设置Item增加、移除动画
@@ -90,18 +83,20 @@ public class NewsFragment extends Fragment implements NewsContract.View {
 
     }
 
-    private void initData() {
+
+    protected void initData() {
         mPresenter.requestEventData(1);
     }
 
 
     @Override
     public void onLoading() {
-
+        loadingAnimation.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onSuccess(ArrayList<EventBean> data) {
+        loadingAnimation.setVisibility(View.GONE);
         mData = data;
         mRecyclerViewNews.setAdapter(new NewsAdapter());
     }
@@ -127,8 +122,6 @@ public class NewsFragment extends Fragment implements NewsContract.View {
 
         @Override
         public int getItemCount() {
-
-
             return mData.size();
         }
     }
@@ -152,7 +145,8 @@ public class NewsFragment extends Fragment implements NewsContract.View {
 
 
     @Override
-    public void onFailed() {
-
+    public void onError(String e) {
+        loadingAnimation.setVisibility(View.GONE);
+        Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
     }
 }

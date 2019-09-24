@@ -22,7 +22,7 @@ public interface NewsContract {
 
         void onSuccess(ArrayList<EventBean> data);
 
-        void onFailed();
+        void onError(String error);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.cd.igitandroid.ui.trending;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.cd.igitandroid.R;
 import com.cd.igitandroid.data.network.model.TrendingBean;
 import com.cd.igitandroid.di.component.DaggerActivityComponent;
 import com.cd.igitandroid.di.module.ActivityModule;
+import com.cd.igitandroid.ui.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +29,23 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TrendingFragment extends Fragment implements TrendingContract.View {
+public class TrendingFragment extends BaseFragment implements TrendingContract.View {
 
 
     @Inject
     TrendingPresenter mPresenter;
+    @BindView(R.id.loading_animation)
+    LottieAnimationView loadingAnimation;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
-    private RecyclerView recyclerView;
+
     private List<TrendingBean> mDatas;
-    private ProgressDialog mProgressDialog;
 
 
     private TrendingAdapter mAdapter;
@@ -49,42 +54,42 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trending, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_trending;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    protected void setupFragmentComponent() {
         //create presenter
         DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule())
                 .build()
                 .inject(this);
-        mPresenter.takeView(this);
-        initView(view);
-        initData();
     }
 
+    @Override
+    protected void initView() {
+        mPresenter.takeView(this);
+        initRecyclerView();
+    }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         mPresenter.requestData();
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
     }
 
-    private void initView(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view);
-        initRecyclerView();
-    }
 
     private void initRecyclerView() {
 
@@ -99,13 +104,14 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
 
     @Override
     public void onLoading() {
-        mProgressDialog = ProgressDialog.show(getContext(), null, "Loading...");
+        loadingAnimation.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void onRequestSuccess(List<TrendingBean> trendingBeanList) {
 
-        mProgressDialog.dismiss();
+        loadingAnimation.setVisibility(View.INVISIBLE);
         mDatas = trendingBeanList;
         //设置adapter
         recyclerView.setAdapter(mAdapter = new TrendingAdapter());
@@ -114,7 +120,7 @@ public class TrendingFragment extends Fragment implements TrendingContract.View 
 
     @Override
     public void onError(String error) {
-        mProgressDialog.dismiss();
+        loadingAnimation.setVisibility(View.INVISIBLE);
         Toast.makeText(getContext(), "network error :" + error, Toast.LENGTH_SHORT).show();
     }
 

@@ -7,24 +7,25 @@
     android:orientation="vertical"
     tools:context=".ui.test.TestActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+    <!--
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
 
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="142-loading-animation.json"
-        app:lottie_loop="true" />
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="142-loading-animation.json"
+            app:lottie_loop="true" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
 
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="315-loader-ring.json"
-        app:lottie_loop="true" />
-
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="315-loader-ring.json"
+            app:lottie_loop="true" />
+    -->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view3"
         android:layout_width="200dp"
@@ -32,6 +33,5 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="2469-dino-dance.json"
         app:lottie_loop="true" />
-
 
 </LinearLayout>
