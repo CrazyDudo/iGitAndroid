@@ -23,4 +23,5 @@ public interface UserService {
             @Path("user") String user,
             @Query("page") int page
     );
+
 }

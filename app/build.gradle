@@ -68,7 +68,6 @@ dependencies {
     //lottie
     implementation 'com.airbnb.android:lottie:3.0.7'
     //about page
-    implementation 'com.github.jrvansuita:MaterialAbout:0.2.3'
     implementation 'com.github.medyo:android-about-page:1.2.5'
 
 }

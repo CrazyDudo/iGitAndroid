@@ -2,6 +2,7 @@ package com.cd.igitandroid.di.module;
 
 import com.cd.igitandroid.ui.issue.IssuePresenter;
 import com.cd.igitandroid.ui.login.LoginPresenter;
+import com.cd.igitandroid.ui.me.MePresenter;
 import com.cd.igitandroid.ui.news.NewsPresenter;
 import com.cd.igitandroid.ui.trending.TrendingPresenter;
 
@@ -37,5 +38,10 @@ public class ActivityModule {
     @Provides
     IssuePresenter provideIssuePresenter() {
         return new IssuePresenter();
+    }
+
+    @Provides
+    MePresenter provideMePresenter() {
+        return new MePresenter();
     }
 }
