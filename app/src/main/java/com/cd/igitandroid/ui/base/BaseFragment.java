@@ -39,7 +39,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void setupFragmentComponent();
 
-
     protected abstract void initView();
 
     protected abstract void initData();

@@ -79,7 +79,6 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     @Override
     protected void setupFragmentComponent() {
-
         DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule())
                 .build()
@@ -91,10 +90,6 @@ public class MeFragment extends BaseFragment implements MeContract.View {
         mMePresenter.takeView(this);
 
     }
-
-
-
-
 
     protected void initData() {
         mMePresenter.loadData();

@@ -22,7 +22,7 @@ public class AboutActivity extends AppCompatActivity {
 //                .setDescription("this is a github android app")
                 .setImage(R.mipmap.github_logo)
                 .addItem(new Element().setTitle("Version 0.7"))
-                .addItem(adsElement)
+//                .addItem(adsElement)
                 .addGroup("Connect with us")
                 .addEmail("crazydudo@gmail.com")
                 .addWebsite("http://crazydudo.github.io/")

@@ -13,7 +13,7 @@ public class AuthUser {
     @Id(autoincrement = true)
     private Long id;
     //basic auth
-    @Property(nameInDb = "name")
+    @Property(nameInDb = "credentials")
     private String credentials;
     @Property(nameInDb = "login_id")
     private String loginId;
