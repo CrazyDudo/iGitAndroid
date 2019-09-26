@@ -13,19 +13,19 @@ public class AuthUser {
     @Id(autoincrement = true)
     private Long id;
     //basic auth
-    @Property(nameInDb = "credentials")
-    private String credentials;
+    @Property(nameInDb = "accessToken")
+    private String accessToken;
     @Property(nameInDb = "login_id")
     private String loginId;
     @Property(nameInDb = "auth_time")
     private String authTime;
     @Property(nameInDb = "avatar")
     private String avatar;
-    @Generated(hash = 73958951)
-    public AuthUser(Long id, String credentials, String loginId, String authTime,
+    @Generated(hash = 164532682)
+    public AuthUser(Long id, String accessToken, String loginId, String authTime,
             String avatar) {
         this.id = id;
-        this.credentials = credentials;
+        this.accessToken = accessToken;
         this.loginId = loginId;
         this.authTime = authTime;
         this.avatar = avatar;
@@ -39,11 +39,11 @@ public class AuthUser {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getCredentials() {
-        return this.credentials;
+    public String getAccessToken() {
+        return this.accessToken;
     }
-    public void setCredentials(String credentials) {
-        this.credentials = credentials;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
     public String getLoginId() {
         return this.loginId;

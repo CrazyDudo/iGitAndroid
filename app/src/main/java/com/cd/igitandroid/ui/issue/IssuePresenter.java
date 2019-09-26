@@ -1,6 +1,8 @@
 package com.cd.igitandroid.ui.issue;
 
 
+import com.cd.igitandroid.data.db.DbOpenHelper;
+import com.cd.igitandroid.data.db.entity.AuthUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.IssueSearchResultBean;
 import com.orhanobut.logger.Logger;
@@ -29,10 +31,13 @@ public class IssuePresenter implements IssueContract.Presenter {
     @Override
     public void loadData(int page) {
         mView.onLoading();
+
+        AuthUser lastAuth = DbOpenHelper.getInstance().getLastAuth();
 //    https://api.github.com/search/issues?sort=created&page=1&q=user:ThirtyDegreesRay+state:open&order=desc
+//        "user:crazydudo+state:open"
         ApiManager.getInstance()
                 .getSerchIssueService()
-                .searchIssues(false, "user:crazydudo+state:open", "created", "desc", page)
+                .searchIssues(false, getQuery(lastAuth), "created", "desc", page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<IssueSearchResultBean>>() {
@@ -59,6 +64,11 @@ public class IssuePresenter implements IssueContract.Presenter {
                     }
                 });
 
+    }
+
+    private String getQuery(AuthUser authUser) {
+
+        return "user:" + authUser.getLoginId() +"+state:open";
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.cd.igitandroid.ui.login;
 
+import com.cd.igitandroid.data.db.DbOpenHelper;
+import com.cd.igitandroid.data.db.entity.AuthUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.LoginResponseBean;
 import com.orhanobut.logger.Logger;
@@ -16,6 +18,15 @@ import okhttp3.Credentials;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View mView;
+
+    @Override
+    public void checkLoginStatus() {
+        if (DbOpenHelper.getInstance().getmDaoSession().getAuthUserDao().loadAll().size() > 0) {
+            mView.onCheckLoginResult(true);
+        } else {
+            mView.onCheckLoginResult(false);
+        }
+    }
 
     @Override
     public void login(String userName, String password) {
@@ -44,6 +55,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                         Logger.d(loginResponseBean);
                         mView.onLoginSuccess(loginResponseBean);
 
+                        saveToken(basic, loginResponseBean);
                     }
 
                     @Override
@@ -58,6 +70,19 @@ public class LoginPresenter implements LoginContract.Presenter {
                     }
                 });
 
+    }
+
+    private void saveToken(String token, LoginResponseBean loginResponseBean) {
+
+
+        AuthUser authUser = new AuthUser();
+
+//        authUser.setId(1l);
+        authUser.setAccessToken(token);
+        authUser.setLoginId(loginResponseBean.getLogin());
+        authUser.setAvatar(loginResponseBean.getAvatar_url());
+        authUser.setAuthTime(System.currentTimeMillis() + "");
+        DbOpenHelper.getInstance().getmDaoSession().getAuthUserDao().insert(authUser);
     }
 
 

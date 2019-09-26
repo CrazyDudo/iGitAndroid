@@ -10,10 +10,12 @@ import com.cd.igitandroid.ui.base.BaseView;
 public class LoginContract {
 
     interface Presenter extends BasePresenter<View> {
-        void login(String userName,String passwrod);
+        void checkLoginStatus();
+        void login(String userName,String password);
         void takeView(LoginContract.View view);
     }
     interface View extends BaseView<Presenter> {
+        void onCheckLoginResult(boolean isLogged);
         void onLoginSuccess(LoginResponseBean loginResponseBean);
         void onLoading();
         void onLoginError(String error);

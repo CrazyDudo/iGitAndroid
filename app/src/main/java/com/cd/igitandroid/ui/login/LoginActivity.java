@@ -53,12 +53,25 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     private void initView() {
         mPresenter.takeView(this);
+        mPresenter.checkLoginStatus();
+    }
+
+    @Override
+    public void onCheckLoginResult(boolean isLogged) {
+        if (isLogged) {
+            startHomepage();
+        }
     }
 
     @Override
     public void onLoginSuccess(LoginResponseBean loginResponseBean) {
         mProgressDialog.dismiss();
         Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
+        startHomepage();
+
+    }
+
+    public void startHomepage() {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

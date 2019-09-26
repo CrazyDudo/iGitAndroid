@@ -3,9 +3,6 @@ package com.cd.igitandroid;
 import android.app.Application;
 
 import com.cd.igitandroid.data.db.DbOpenHelper;
-import com.cd.igitandroid.data.db.entity.AuthUser;
-import com.cd.igitandroid.data.db.gen.DaoMaster;
-import com.cd.igitandroid.data.db.gen.DaoSession;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -14,7 +11,7 @@ import com.orhanobut.logger.Logger;
  */
 public class AppApplication extends Application {
     private static Application mApplication;
-    private DaoSession mDaoSession;
+
 
 
     @Override
@@ -30,14 +27,7 @@ public class AppApplication extends Application {
     }
 
     private void initDatabase() {
-
-        mDaoSession =
-                new DaoMaster(new DbOpenHelper(this, "auth_user.db").getWritableDb()).newSession();
-
-        // USER CREATION FOR DEMO PURPOSE
-        if (mDaoSession.getAuthUserDao().loadAll().size() == 0) {
-            mDaoSession.getAuthUserDao().insert(new AuthUser());
-        }
+        DbOpenHelper.getInstance();
     }
 
     public static Application getContext() {
@@ -47,7 +37,5 @@ public class AppApplication extends Application {
     }
 
 
-    public DaoSession getDaoSession() {
-        return mDaoSession;
-    }
+
 }

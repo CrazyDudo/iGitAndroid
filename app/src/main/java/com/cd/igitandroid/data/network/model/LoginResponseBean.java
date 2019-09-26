@@ -4,142 +4,141 @@ package com.cd.igitandroid.data.network.model;
  * Created by ruandong on 2019/9/16.
  */
 public class LoginResponseBean {
+
     /**
-     * current_user_url : https://api.github.com/user
-     * current_user_authorizations_html_url : https://github.com/settings/connections/applications{/client_id}
-     * authorizations_url : https://api.github.com/authorizations
-     * code_search_url : https://api.github.com/search/code?q={query}{&page,per_page,sort,order}
-     * commit_search_url : https://api.github.com/search/commits?q={query}{&page,per_page,sort,order}
-     * emails_url : https://api.github.com/user/emails
-     * emojis_url : https://api.github.com/emojis
-     * events_url : https://api.github.com/events
-     * feeds_url : https://api.github.com/feeds
-     * followers_url : https://api.github.com/user/followers
-     * following_url : https://api.github.com/user/following{/target}
-     * gists_url : https://api.github.com/gists{/gist_id}
-     * hub_url : https://api.github.com/hub
-     * issue_search_url : https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}
-     * issues_url : https://api.github.com/issues
-     * keys_url : https://api.github.com/user/keys
-     * notifications_url : https://api.github.com/notifications
-     * organization_repositories_url : https://api.github.com/orgs/{org}/repos{?type,page,per_page,sort}
-     * organization_url : https://api.github.com/orgs/{org}
-     * public_gists_url : https://api.github.com/gists/public
-     * rate_limit_url : https://api.github.com/rate_limit
-     * repository_url : https://api.github.com/repos/{owner}/{repo}
-     * repository_search_url : https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}
-     * current_user_repositories_url : https://api.github.com/user/repos{?type,page,per_page,sort}
-     * starred_url : https://api.github.com/user/starred{/owner}{/repo}
-     * starred_gists_url : https://api.github.com/gists/starred
-     * team_url : https://api.github.com/teams
-     * user_url : https://api.github.com/users/{user}
-     * user_organizations_url : https://api.github.com/user/orgs
-     * user_repositories_url : https://api.github.com/users/{user}/repos{?type,page,per_page,sort}
-     * user_search_url : https://api.github.com/search/users?q={query}{&page,per_page,sort,order}
+     * login : CrazyDudo
+     * id : 11856763
+     * node_id : MDQ6VXNlcjExODU2NzYz
+     * avatar_url : https://avatars0.githubusercontent.com/u/11856763?v=4
+     * gravatar_id :
+     * url : https://api.github.com/users/CrazyDudo
+     * html_url : https://github.com/CrazyDudo
+     * followers_url : https://api.github.com/users/CrazyDudo/followers
+     * following_url : https://api.github.com/users/CrazyDudo/following{/other_user}
+     * gists_url : https://api.github.com/users/CrazyDudo/gists{/gist_id}
+     * starred_url : https://api.github.com/users/CrazyDudo/starred{/owner}{/repo}
+     * subscriptions_url : https://api.github.com/users/CrazyDudo/subscriptions
+     * organizations_url : https://api.github.com/users/CrazyDudo/orgs
+     * repos_url : https://api.github.com/users/CrazyDudo/repos
+     * events_url : https://api.github.com/users/CrazyDudo/events{/privacy}
+     * received_events_url : https://api.github.com/users/CrazyDudo/received_events
+     * type : User
+     * site_admin : false
+     * name : null
+     * company : null
+     * blog :
+     * location : null
+     * email : null
+     * hireable : null
+     * bio : null
+     * public_repos : 15
+     * public_gists : 0
+     * followers : 14
+     * following : 23
+     * created_at : 2015-04-08T16:02:50Z
+     * updated_at : 2019-09-16T09:00:56Z
+     * private_gists : 1
+     * total_private_repos : 6
+     * owned_private_repos : 6
+     * disk_usage : 21167
+     * collaborators : 0
+     * two_factor_authentication : false
+     * plan : {"name":"free","space":976562499,"collaborators":0,"private_repos":10000}
      */
 
-    private String current_user_url;
-    private String current_user_authorizations_html_url;
-    private String authorizations_url;
-    private String code_search_url;
-    private String commit_search_url;
-    private String emails_url;
-    private String emojis_url;
-    private String events_url;
-    private String feeds_url;
+    private String login;
+    private int id;
+    private String node_id;
+    private String avatar_url;
+    private String gravatar_id;
+    private String url;
+    private String html_url;
     private String followers_url;
     private String following_url;
     private String gists_url;
-    private String hub_url;
-    private String issue_search_url;
-    private String issues_url;
-    private String keys_url;
-    private String notifications_url;
-    private String organization_repositories_url;
-    private String organization_url;
-    private String public_gists_url;
-    private String rate_limit_url;
-    private String repository_url;
-    private String repository_search_url;
-    private String current_user_repositories_url;
     private String starred_url;
-    private String starred_gists_url;
-    private String team_url;
-    private String user_url;
-    private String user_organizations_url;
-    private String user_repositories_url;
-    private String user_search_url;
+    private String subscriptions_url;
+    private String organizations_url;
+    private String repos_url;
+    private String events_url;
+    private String received_events_url;
+    private String type;
+    private boolean site_admin;
+    private Object name;
+    private Object company;
+    private String blog;
+    private Object location;
+    private Object email;
+    private Object hireable;
+    private Object bio;
+    private int public_repos;
+    private int public_gists;
+    private int followers;
+    private int following;
+    private String created_at;
+    private String updated_at;
+    private int private_gists;
+    private int total_private_repos;
+    private int owned_private_repos;
+    private int disk_usage;
+    private int collaborators;
+    private boolean two_factor_authentication;
+    private PlanBean plan;
 
-    public String getCurrent_user_url() {
-        return current_user_url;
+    public String getLogin() {
+        return login;
     }
 
-    public void setCurrent_user_url(String current_user_url) {
-        this.current_user_url = current_user_url;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getCurrent_user_authorizations_html_url() {
-        return current_user_authorizations_html_url;
+    public int getId() {
+        return id;
     }
 
-    public void setCurrent_user_authorizations_html_url(String current_user_authorizations_html_url) {
-        this.current_user_authorizations_html_url = current_user_authorizations_html_url;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getAuthorizations_url() {
-        return authorizations_url;
+    public String getNode_id() {
+        return node_id;
     }
 
-    public void setAuthorizations_url(String authorizations_url) {
-        this.authorizations_url = authorizations_url;
+    public void setNode_id(String node_id) {
+        this.node_id = node_id;
     }
 
-    public String getCode_search_url() {
-        return code_search_url;
+    public String getAvatar_url() {
+        return avatar_url;
     }
 
-    public void setCode_search_url(String code_search_url) {
-        this.code_search_url = code_search_url;
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
     }
 
-    public String getCommit_search_url() {
-        return commit_search_url;
+    public String getGravatar_id() {
+        return gravatar_id;
     }
 
-    public void setCommit_search_url(String commit_search_url) {
-        this.commit_search_url = commit_search_url;
+    public void setGravatar_id(String gravatar_id) {
+        this.gravatar_id = gravatar_id;
     }
 
-    public String getEmails_url() {
-        return emails_url;
+    public String getUrl() {
+        return url;
     }
 
-    public void setEmails_url(String emails_url) {
-        this.emails_url = emails_url;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getEmojis_url() {
-        return emojis_url;
+    public String getHtml_url() {
+        return html_url;
     }
 
-    public void setEmojis_url(String emojis_url) {
-        this.emojis_url = emojis_url;
-    }
-
-    public String getEvents_url() {
-        return events_url;
-    }
-
-    public void setEvents_url(String events_url) {
-        this.events_url = events_url;
-    }
-
-    public String getFeeds_url() {
-        return feeds_url;
-    }
-
-    public void setFeeds_url(String feeds_url) {
-        this.feeds_url = feeds_url;
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
     }
 
     public String getFollowers_url() {
@@ -166,102 +165,6 @@ public class LoginResponseBean {
         this.gists_url = gists_url;
     }
 
-    public String getHub_url() {
-        return hub_url;
-    }
-
-    public void setHub_url(String hub_url) {
-        this.hub_url = hub_url;
-    }
-
-    public String getIssue_search_url() {
-        return issue_search_url;
-    }
-
-    public void setIssue_search_url(String issue_search_url) {
-        this.issue_search_url = issue_search_url;
-    }
-
-    public String getIssues_url() {
-        return issues_url;
-    }
-
-    public void setIssues_url(String issues_url) {
-        this.issues_url = issues_url;
-    }
-
-    public String getKeys_url() {
-        return keys_url;
-    }
-
-    public void setKeys_url(String keys_url) {
-        this.keys_url = keys_url;
-    }
-
-    public String getNotifications_url() {
-        return notifications_url;
-    }
-
-    public void setNotifications_url(String notifications_url) {
-        this.notifications_url = notifications_url;
-    }
-
-    public String getOrganization_repositories_url() {
-        return organization_repositories_url;
-    }
-
-    public void setOrganization_repositories_url(String organization_repositories_url) {
-        this.organization_repositories_url = organization_repositories_url;
-    }
-
-    public String getOrganization_url() {
-        return organization_url;
-    }
-
-    public void setOrganization_url(String organization_url) {
-        this.organization_url = organization_url;
-    }
-
-    public String getPublic_gists_url() {
-        return public_gists_url;
-    }
-
-    public void setPublic_gists_url(String public_gists_url) {
-        this.public_gists_url = public_gists_url;
-    }
-
-    public String getRate_limit_url() {
-        return rate_limit_url;
-    }
-
-    public void setRate_limit_url(String rate_limit_url) {
-        this.rate_limit_url = rate_limit_url;
-    }
-
-    public String getRepository_url() {
-        return repository_url;
-    }
-
-    public void setRepository_url(String repository_url) {
-        this.repository_url = repository_url;
-    }
-
-    public String getRepository_search_url() {
-        return repository_search_url;
-    }
-
-    public void setRepository_search_url(String repository_search_url) {
-        this.repository_search_url = repository_search_url;
-    }
-
-    public String getCurrent_user_repositories_url() {
-        return current_user_repositories_url;
-    }
-
-    public void setCurrent_user_repositories_url(String current_user_repositories_url) {
-        this.current_user_repositories_url = current_user_repositories_url;
-    }
-
     public String getStarred_url() {
         return starred_url;
     }
@@ -270,51 +173,265 @@ public class LoginResponseBean {
         this.starred_url = starred_url;
     }
 
-    public String getStarred_gists_url() {
-        return starred_gists_url;
+    public String getSubscriptions_url() {
+        return subscriptions_url;
     }
 
-    public void setStarred_gists_url(String starred_gists_url) {
-        this.starred_gists_url = starred_gists_url;
+    public void setSubscriptions_url(String subscriptions_url) {
+        this.subscriptions_url = subscriptions_url;
     }
 
-    public String getTeam_url() {
-        return team_url;
+    public String getOrganizations_url() {
+        return organizations_url;
     }
 
-    public void setTeam_url(String team_url) {
-        this.team_url = team_url;
+    public void setOrganizations_url(String organizations_url) {
+        this.organizations_url = organizations_url;
     }
 
-    public String getUser_url() {
-        return user_url;
+    public String getRepos_url() {
+        return repos_url;
     }
 
-    public void setUser_url(String user_url) {
-        this.user_url = user_url;
+    public void setRepos_url(String repos_url) {
+        this.repos_url = repos_url;
     }
 
-    public String getUser_organizations_url() {
-        return user_organizations_url;
+    public String getEvents_url() {
+        return events_url;
     }
 
-    public void setUser_organizations_url(String user_organizations_url) {
-        this.user_organizations_url = user_organizations_url;
+    public void setEvents_url(String events_url) {
+        this.events_url = events_url;
     }
 
-    public String getUser_repositories_url() {
-        return user_repositories_url;
+    public String getReceived_events_url() {
+        return received_events_url;
     }
 
-    public void setUser_repositories_url(String user_repositories_url) {
-        this.user_repositories_url = user_repositories_url;
+    public void setReceived_events_url(String received_events_url) {
+        this.received_events_url = received_events_url;
     }
 
-    public String getUser_search_url() {
-        return user_search_url;
+    public String getType() {
+        return type;
     }
 
-    public void setUser_search_url(String user_search_url) {
-        this.user_search_url = user_search_url;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isSite_admin() {
+        return site_admin;
+    }
+
+    public void setSite_admin(boolean site_admin) {
+        this.site_admin = site_admin;
+    }
+
+    public Object getName() {
+        return name;
+    }
+
+    public void setName(Object name) {
+        this.name = name;
+    }
+
+    public Object getCompany() {
+        return company;
+    }
+
+    public void setCompany(Object company) {
+        this.company = company;
+    }
+
+    public String getBlog() {
+        return blog;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    public Object getLocation() {
+        return location;
+    }
+
+    public void setLocation(Object location) {
+        this.location = location;
+    }
+
+    public Object getEmail() {
+        return email;
+    }
+
+    public void setEmail(Object email) {
+        this.email = email;
+    }
+
+    public Object getHireable() {
+        return hireable;
+    }
+
+    public void setHireable(Object hireable) {
+        this.hireable = hireable;
+    }
+
+    public Object getBio() {
+        return bio;
+    }
+
+    public void setBio(Object bio) {
+        this.bio = bio;
+    }
+
+    public int getPublic_repos() {
+        return public_repos;
+    }
+
+    public void setPublic_repos(int public_repos) {
+        this.public_repos = public_repos;
+    }
+
+    public int getPublic_gists() {
+        return public_gists;
+    }
+
+    public void setPublic_gists(int public_gists) {
+        this.public_gists = public_gists;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public int getPrivate_gists() {
+        return private_gists;
+    }
+
+    public void setPrivate_gists(int private_gists) {
+        this.private_gists = private_gists;
+    }
+
+    public int getTotal_private_repos() {
+        return total_private_repos;
+    }
+
+    public void setTotal_private_repos(int total_private_repos) {
+        this.total_private_repos = total_private_repos;
+    }
+
+    public int getOwned_private_repos() {
+        return owned_private_repos;
+    }
+
+    public void setOwned_private_repos(int owned_private_repos) {
+        this.owned_private_repos = owned_private_repos;
+    }
+
+    public int getDisk_usage() {
+        return disk_usage;
+    }
+
+    public void setDisk_usage(int disk_usage) {
+        this.disk_usage = disk_usage;
+    }
+
+    public int getCollaborators() {
+        return collaborators;
+    }
+
+    public void setCollaborators(int collaborators) {
+        this.collaborators = collaborators;
+    }
+
+    public boolean isTwo_factor_authentication() {
+        return two_factor_authentication;
+    }
+
+    public void setTwo_factor_authentication(boolean two_factor_authentication) {
+        this.two_factor_authentication = two_factor_authentication;
+    }
+
+    public PlanBean getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanBean plan) {
+        this.plan = plan;
+    }
+
+    public static class PlanBean {
+        /**
+         * name : free
+         * space : 976562499
+         * collaborators : 0
+         * private_repos : 10000
+         */
+
+        private String name;
+        private int space;
+        private int collaborators;
+        private int private_repos;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getSpace() {
+            return space;
+        }
+
+        public void setSpace(int space) {
+            this.space = space;
+        }
+
+        public int getCollaborators() {
+            return collaborators;
+        }
+
+        public void setCollaborators(int collaborators) {
+            this.collaborators = collaborators;
+        }
+
+        public int getPrivate_repos() {
+            return private_repos;
+        }
+
+        public void setPrivate_repos(int private_repos) {
+            this.private_repos = private_repos;
+        }
     }
 }

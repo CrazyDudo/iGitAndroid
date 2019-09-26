@@ -1,52 +1,43 @@
 package com.cd.igitandroid.ui.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.cd.igitandroid.AppApplication;
 import com.cd.igitandroid.R;
-import com.cd.igitandroid.data.db.entity.AuthUser;
-import com.cd.igitandroid.data.db.gen.AuthUserDao;
-import com.orhanobut.logger.Logger;
-
-import org.greenrobot.greendao.query.QueryBuilder;
-
-import java.util.List;
-import java.util.Random;
+import com.cd.igitandroid.data.db.DbOpenHelper;
+import com.cd.igitandroid.ui.homepage.HomeActivity;
+import com.cd.igitandroid.ui.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private AuthUserDao mAuthUserDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mAuthUserDao = ((AppApplication) getApplication()).getDaoSession().getAuthUserDao();
-        //        User user = ((DemoApp)getApplication()).getDaoSession().getUserDao().load(1L);
-        AuthUser authUser = new AuthUser();
-        Random random = new Random();
-        authUser.setId(random.nextLong());
-        authUser.setLoginId("testuser1");
+        init();
+    }
+
+    private void init() {
+
+        if (isLogged()) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+    }
 
 
-        mAuthUserDao.insert(authUser);
+    public boolean isLogged() {
 
-
-
-
-        mAuthUserDao.detachAll();
-        List<AuthUser> userList = mAuthUserDao.loadAll();
-//                Collections.reverse(userList);
-//                Logger.d(userList.get(0).getId());
-
-        QueryBuilder<AuthUser> qb = mAuthUserDao.queryBuilder().orderDesc().limit(1);    //invert list
-        AuthUser unique = qb.build().unique();
-
-         Logger.d(unique.getId());
-         Logger.d(userList);
-
-
+        if (DbOpenHelper.getInstance().getmDaoSession().getAuthUserDao().loadAll().size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.cd.igitandroid.ui.news;
 
+import com.cd.igitandroid.data.db.DbOpenHelper;
+import com.cd.igitandroid.data.db.entity.AuthUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.EventBean;
 import com.orhanobut.logger.Logger;
@@ -23,8 +25,10 @@ public class NewsPresenter implements NewsContract.Presenter {
     @Override
     public void requestEventData(int page) {
         mView.onLoading();
+        AuthUser lastAuth = DbOpenHelper.getInstance().getLastAuth();
+
         ApiManager.getInstance().getUserService()
-                .getNewsEvent(true, "crazydudo", page)
+                .getNewsEvent(true, lastAuth.getLoginId(), page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<ArrayList<EventBean>>>() {
@@ -39,7 +43,6 @@ public class NewsPresenter implements NewsContract.Presenter {
 
                         mView.onSuccess(arrayListResponse.body());
                         Logger.d(arrayListResponse);
-
 
 
                     }

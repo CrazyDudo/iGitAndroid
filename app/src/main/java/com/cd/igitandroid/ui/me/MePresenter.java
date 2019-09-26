@@ -1,5 +1,7 @@
 package com.cd.igitandroid.ui.me;
 
+import com.cd.igitandroid.data.db.DbOpenHelper;
+import com.cd.igitandroid.data.db.entity.AuthUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.UserBean;
 import com.orhanobut.logger.Logger;
@@ -19,11 +21,11 @@ public class MePresenter implements MeContract.Presenter {
     @Override
     public void loadData() {
 
-        // TODO: 2019/9/25 数据库查询登录信息
-        String basic = "Basic Y3JhenlkdWRvOmNkMTAwNDQyMjU=";
-        Logger.d(basic);
+        AuthUser lastAuth = DbOpenHelper.getInstance().getLastAuth();
+//        String basic = "Basic Y3JhenlkdWRvOmNkMTAwNDQyMjU=";
+//        Logger.d(basic);
         ApiManager.getInstance()
-                .getLoginService(basic)
+                .getLoginService(lastAuth.getAccessToken())
                 .loginUserInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

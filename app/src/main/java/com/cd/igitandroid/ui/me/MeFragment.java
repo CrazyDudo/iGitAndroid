@@ -125,8 +125,18 @@ public class MeFragment extends BaseFragment implements MeContract.View {
 
     private void updateUerInfo(UserBean userBean) {
 
-        Glide.with(getContext()).load(mData.getAvatar_url()).into(ivProfilePhoto);
+        Glide.with(getContext()).load(mData.getAvatar_url())
+                .error(R.mipmap.github_logo)
+                .placeholder(R.mipmap.github_logo)
+                .fallback(R.mipmap.github_logo)
+                .into(ivProfilePhoto);
         tvUserName.setText(mData.getLogin());
+        tvEmail.setText(mData.getEmail() == null ? "--" : mData.getEmail().toString());
+        tvBlog.setText(mData.getBlog() == "" ? "--" : mData.getBlog());
+        tvLocation.setText(mData.getLocation() == null ? "--" : mData.getLocation().toString());
+        tvFollowersNum.setText(mData.getFollowers()+"");
+        tvFollowingNum.setText(mData.getFollowing()+"");
+        tvReposNum.setText(mData.getPublic_repos()+"");
     }
 
     @Override
