@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
@@ -35,6 +36,8 @@ public class IssueFragment extends BaseFragment implements IssueContract.View {
     LottieAnimationView loadingAnimation;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.iv_empty)
+    ImageView ivEmpty;
     private IssueSearchResultBean mData;
 
     @Inject
@@ -92,7 +95,21 @@ public class IssueFragment extends BaseFragment implements IssueContract.View {
 
     @Override
     public void onError(String error) {
+        Toast.makeText(getContext(), "Empty", Toast.LENGTH_SHORT).show();
+        showEmptyView();
+    }
+
+    @Override
+    public void onEmpty() {
+        showEmptyView();
+        Toast.makeText(getContext(), "Empty", Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void showEmptyView() {
         loadingAnimation.setVisibility(View.GONE);
+        ivEmpty.setVisibility(View.VISIBLE);
+
     }
 
     @OnClick(R.id.loading_animation)

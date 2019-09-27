@@ -38,6 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
 
         String basic = Credentials.basic(userName, password);
+        Logger.d(basic);
 
         ApiManager.getInstance()
                 .getLoginService(basic)

@@ -40,6 +40,8 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     LottieAnimationView loadingAnimation;
     @BindView(R.id.recycler_view_news)
     RecyclerView mRecyclerViewNews;
+    @BindView(R.id.iv_empty)
+    ImageView ivEmpty;
 
     private ArrayList<EventBean> mData;
 
@@ -148,5 +150,12 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     public void onError(String e) {
         loadingAnimation.setVisibility(View.GONE);
         Toast.makeText(getContext(), "" + e, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onEmpty() {
+        loadingAnimation.setVisibility(View.GONE);
+        ivEmpty.setVisibility(View.VISIBLE);
+        Toast.makeText(getContext(), "Empty", Toast.LENGTH_SHORT).show();
     }
 }

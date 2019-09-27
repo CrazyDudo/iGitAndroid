@@ -4,7 +4,6 @@ import com.cd.igitandroid.data.network.model.IssueSearchResultBean;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
-import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -17,7 +16,7 @@ public interface SearchService {
     //    https://api.github.com/search/issues?sort=created&page=1&q=user:ThirtyDegreesRay+state:open&order=desc
     @NonNull @GET("search/issues")
     @Headers("Accept: application/vnd.github.html,application/vnd.github.VERSION.raw")
-    Observable<Response<IssueSearchResultBean>> searchIssues(
+    Observable<IssueSearchResultBean> searchIssues(
             @Header("forceNetWork") boolean forceNetWork,
             @Query(value = "q", encoded = true) String query,
             @Query("sort") String sort,

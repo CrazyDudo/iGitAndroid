@@ -11,7 +11,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 /**
  * Created by ruandong on 2019/9/16.
@@ -40,16 +39,21 @@ public class IssuePresenter implements IssueContract.Presenter {
                 .searchIssues(false, getQuery(lastAuth), "created", "desc", page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<IssueSearchResultBean>>() {
+                .subscribe(new Observer<IssueSearchResultBean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Response<IssueSearchResultBean> searchResultBeanResponse) {
+                    public void onNext(IssueSearchResultBean searchResultBeanResponse) {
                         Logger.d(searchResultBeanResponse);
-                        mView.onSuccess(searchResultBeanResponse.body());
+
+                        if (searchResultBeanResponse.getTotal_count()<=0||searchResultBeanResponse==null) {
+                            mView.onEmpty();
+                        } else {
+                            mView.onSuccess(searchResultBeanResponse);
+                        }
                     }
 
                     @Override
@@ -68,7 +72,7 @@ public class IssuePresenter implements IssueContract.Presenter {
 
     private String getQuery(AuthUser authUser) {
 
-        return "user:" + authUser.getLoginId() +"+state:open";
+        return "user:" + authUser.getLoginId() + "+state:open";
     }
 
     @Override

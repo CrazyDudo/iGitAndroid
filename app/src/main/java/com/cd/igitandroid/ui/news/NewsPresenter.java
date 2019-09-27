@@ -40,10 +40,14 @@ public class NewsPresenter implements NewsContract.Presenter {
                     @Override
                     public void onNext(Response<ArrayList<EventBean>> arrayListResponse) {
 
-
-                        mView.onSuccess(arrayListResponse.body());
                         Logger.d(arrayListResponse);
 
+                        if (arrayListResponse.body().size() > 0) {
+                            mView.onSuccess(arrayListResponse.body());
+
+                        } else {
+                            mView.onEmpty();
+                        }
 
                     }
 

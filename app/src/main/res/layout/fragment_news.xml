@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:src="@mipmap/img_empty"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:id="@+id/iv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading_animation"
         android:layout_width="wrap_content"

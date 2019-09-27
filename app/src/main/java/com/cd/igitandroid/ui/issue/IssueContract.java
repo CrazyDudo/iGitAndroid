@@ -17,6 +17,7 @@ public class IssueContract {
         void onSuccess(IssueSearchResultBean issueSearchResultBean);
         void onLoading();
         void onError(String error);
+        void onEmpty();
     }
 
 

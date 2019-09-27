@@ -15,6 +15,7 @@ public interface NewsContract {
         void requestEventData(int page);
 
         void takeView(View view);
+
     }
 
     interface View extends BaseView<Presenter> {
@@ -23,6 +24,8 @@ public interface NewsContract {
         void onSuccess(ArrayList<EventBean> data);
 
         void onError(String error);
+
+        void onEmpty();
     }
 
 }
