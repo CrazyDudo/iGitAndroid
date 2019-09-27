@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
 /**
  * Created by ruandong on 2019/9/19.
  */
-@Entity(nameInDb = "auth_user")
+@Entity(nameInDb = "AUTH_USER")
 public class AuthUser {
     @Id(autoincrement = true)
     private Long id;

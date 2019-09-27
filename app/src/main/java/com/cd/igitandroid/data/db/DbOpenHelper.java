@@ -3,9 +3,11 @@ package com.cd.igitandroid.data.db;
 
 import com.cd.igitandroid.AppApplication;
 import com.cd.igitandroid.data.db.entity.AuthUser;
+import com.cd.igitandroid.data.db.entity.LocalUser;
 import com.cd.igitandroid.data.db.gen.AuthUserDao;
 import com.cd.igitandroid.data.db.gen.DaoMaster;
 import com.cd.igitandroid.data.db.gen.DaoSession;
+import com.cd.igitandroid.data.db.gen.LocalUserDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -69,6 +71,22 @@ public class DbOpenHelper {
         }
         mDaoSession.getAuthUserDao().detachAll();
         QueryBuilder<AuthUser> qb = mDaoSession.getAuthUserDao().queryBuilder().orderDesc(AuthUserDao.Properties.Id).limit(1);    //invert list
+        return qb.build().unique();
+    }
+
+
+
+    /**
+     * Get Last LocalUser
+     *
+     * @return Entity
+     */
+    public LocalUser getLastLocalUser() {
+        if (mDaoSession == null) {
+            init();
+        }
+        mDaoSession.getLocalUserDao().detachAll();
+        QueryBuilder<LocalUser> qb = mDaoSession.getLocalUserDao().queryBuilder().orderDesc(LocalUserDao.Properties.Id).limit(1);    //invert list
         return qb.build().unique();
     }
 

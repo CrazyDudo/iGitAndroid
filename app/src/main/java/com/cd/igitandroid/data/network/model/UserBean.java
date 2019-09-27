@@ -23,7 +23,7 @@ public class UserBean {
      * repos_url : https://api.github.com/users/CrazyDudo/repos
      * events_url : https://api.github.com/users/CrazyDudo/events{/privacy}
      * received_events_url : https://api.github.com/users/CrazyDudo/received_events
-     * type : User
+     * type : SaveedUserHaha
      * site_admin : false
      * name : null
      * company : null

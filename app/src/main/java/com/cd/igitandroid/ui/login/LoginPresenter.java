@@ -2,6 +2,7 @@ package com.cd.igitandroid.ui.login;
 
 import com.cd.igitandroid.data.db.DbOpenHelper;
 import com.cd.igitandroid.data.db.entity.AuthUser;
+import com.cd.igitandroid.data.db.entity.LocalUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.LoginResponseBean;
 import com.orhanobut.logger.Logger;
@@ -53,9 +54,9 @@ public class LoginPresenter implements LoginContract.Presenter {
                     public void onNext(LoginResponseBean loginResponseBean) {
 
                         Logger.d(loginResponseBean);
+                        saveToken(basic, loginResponseBean);
                         mView.onLoginSuccess(loginResponseBean);
 
-                        saveToken(basic, loginResponseBean);
                     }
 
                     @Override
@@ -74,15 +75,44 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private void saveToken(String token, LoginResponseBean loginResponseBean) {
 
-
+        //save to auth user
         AuthUser authUser = new AuthUser();
 
-//        authUser.setId(1l);
+        //        authUser.setId(1l);
         authUser.setAccessToken(token);
         authUser.setLoginId(loginResponseBean.getLogin());
         authUser.setAvatar(loginResponseBean.getAvatar_url());
         authUser.setAuthTime(System.currentTimeMillis() + "");
         DbOpenHelper.getInstance().getmDaoSession().getAuthUserDao().insert(authUser);
+
+
+        //save to local user
+        LocalUser localUser = new LocalUser();
+
+//        private String login;
+//        private String name;
+//        private String avatarUrl;
+//        private Integer followers;
+//        private Integer following;
+//        private Integer repos;
+//        private String email;
+//        private String blog;
+//        private String location;
+
+        localUser.setLogin(loginResponseBean.getLogin());
+        localUser.setName(loginResponseBean.getName() + "");
+        localUser.setAvatarUrl(loginResponseBean.getAvatar_url());
+        localUser.setFollowers(loginResponseBean.getFollowers());
+        localUser.setFollowing(loginResponseBean.getFollowing());
+        localUser.setRepos(loginResponseBean.getPublic_repos());
+        localUser.setEmail(loginResponseBean.getEmail() + "");
+        localUser.setBlog(loginResponseBean.getBlog() + "");
+        localUser.setLocation(loginResponseBean.getLocation() + "");
+
+        long insert = DbOpenHelper.getInstance().getmDaoSession().getLocalUserDao().insert(localUser);
+
+        Logger.d(insert);
+
     }
 
 

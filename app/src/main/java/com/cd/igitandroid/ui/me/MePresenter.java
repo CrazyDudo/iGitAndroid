@@ -2,6 +2,7 @@ package com.cd.igitandroid.ui.me;
 
 import com.cd.igitandroid.data.db.DbOpenHelper;
 import com.cd.igitandroid.data.db.entity.AuthUser;
+import com.cd.igitandroid.data.db.entity.LocalUser;
 import com.cd.igitandroid.data.network.ApiManager;
 import com.cd.igitandroid.data.network.model.UserBean;
 import com.orhanobut.logger.Logger;
@@ -21,6 +22,15 @@ public class MePresenter implements MeContract.Presenter {
     @Override
     public void loadData() {
 
+        if (DbOpenHelper.getInstance().getLastLocalUser() != null) {
+            loadLocalData();
+        } else {
+            loadHostData();
+        }
+
+    }
+
+    private void loadHostData() {
         AuthUser lastAuth = DbOpenHelper.getInstance().getLastAuth();
 //        String basic = "Basic Y3JhenlkdWRvOmNkMTAwNDQyMjU=";
 //        Logger.d(basic);
@@ -53,6 +63,21 @@ public class MePresenter implements MeContract.Presenter {
 
                     }
                 });
+    }
+
+    private void loadLocalData() {
+        LocalUser lastLocalUser = DbOpenHelper.getInstance().getLastLocalUser();
+        UserBean userBean = new UserBean();
+        userBean.setLogin(lastLocalUser.getLogin());
+        userBean.setAvatar_url(lastLocalUser.getAvatarUrl());
+        userBean.setName(lastLocalUser.getName());
+        userBean.setFollowers(lastLocalUser.getFollowers());
+        userBean.setFollowing(lastLocalUser.getFollowing());
+        userBean.setPublic_repos(lastLocalUser.getRepos());
+
+        mView.onSuccess(userBean);
+
+
     }
 
     @Override
