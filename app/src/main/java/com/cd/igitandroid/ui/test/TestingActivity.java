@@ -7,19 +7,17 @@ import com.mukesh.MarkdownView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TestActivity extends AppCompatActivity {
-
-
+public class TestingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_testing);
 
-        MarkdownView markdownView = findViewById(R.id.markdown_view);
-//        markdownView.loadMarkdownFromAssets("README.md");
+        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdown_view);
         markdownView.setMarkDownText("# Hello World\nThis is a simple markdown\n"
                 + "https://github.com/mukeshsolanki/MarkdownView-Android/");
+        //markdownView.loadMarkdownFromAssets("README.md");
         markdownView.setOpenUrlInBrowser(true); // default false
 
     }
