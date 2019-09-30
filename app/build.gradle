@@ -68,4 +68,5 @@ dependencies {
     implementation 'com.github.medyo:android-about-page:1.2.5'
     //markdown
     implementation 'com.github.mukeshsolanki:MarkdownView-Android:1.0.8'
+
 }

@@ -15,10 +15,9 @@ public class TestingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_testing);
 
         MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdown_view);
-        markdownView.setMarkDownText("# Hello World\nThis is a simple markdown\n"
-                + "https://github.com/mukeshsolanki/MarkdownView-Android/");
-        //markdownView.loadMarkdownFromAssets("README.md");
-        markdownView.setOpenUrlInBrowser(true); // default false
+        markdownView.loadMarkdownFromAssets("README.md");
+   /* markdownView.setMarkDownText("# Hello World\nThis is a simple markdown\n"
+                + "https://github.com/mukeshsolanki/MarkdownView-Android/");*/
 
     }
 }

@@ -1,6 +1,7 @@
 package com.cd.igitandroid.ui.trending;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.cd.igitandroid.data.network.model.TrendingBean;
 import com.cd.igitandroid.di.component.DaggerActivityComponent;
 import com.cd.igitandroid.di.module.ActivityModule;
 import com.cd.igitandroid.ui.base.BaseFragment;
+import com.cd.igitandroid.ui.repository.RepositoryActivity;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +118,9 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
         mDatas = trendingBeanList;
         //设置adapter
         recyclerView.setAdapter(mAdapter = new TrendingAdapter());
+
+
+
     }
 
 
@@ -125,17 +131,22 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
     }
 
 
-    class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.MyViewHolder> {
+    class TrendingAdapter extends RecyclerView.Adapter<MyViewHolder> implements View.OnClickListener {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(getContext())
-                    .inflate(R.layout.item_trending, parent, false));
+            View view = LayoutInflater.from(getContext())
+                    .inflate(R.layout.item_trending, parent, false);
+            MyViewHolder holder = new MyViewHolder(view);
+
+            view.setOnClickListener(this);
             return holder;
         }
 
+
+
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull  MyViewHolder holder, int position) {
             TrendingBean trendingBean = mDatas.get(position);
             holder.mTvName.setText(trendingBean.getAuthor() + "/" + trendingBean.getName());
             holder.mTvDesc.setText(trendingBean.getDescription());
@@ -163,39 +174,92 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
             return mDatas.size();
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder {
-            TextView mTvName;
-            private final TextView mTvDesc;
-            private final TextView mTvStar;
-            private final TextView mTvFork;
-            private final TextView mTvLanguage;
-            private final TextView mTvCurrentStars;
-            private final ImageView mIvFirst;
-            private final ImageView mIvSecond;
-            private final ImageView mIvThird;
-            private final ImageView mIvForth;
-            private final ImageView mIvFifth;
-
-
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-                mTvName = itemView.findViewById(R.id.tv_name);
-                mTvDesc = itemView.findViewById(R.id.tv_desc);
-                mTvCurrentStars = itemView.findViewById(R.id.tv_current_period_stars);
-                mTvStar = itemView.findViewById(R.id.tv_star);
-                mTvFork = itemView.findViewById(R.id.tv_fork);
-                mTvLanguage = itemView.findViewById(R.id.tv_language);
-                mIvFirst = itemView.findViewById(R.id.img_first);
-                mIvSecond = itemView.findViewById(R.id.img_second);
-                mIvThird = itemView.findViewById(R.id.img_third);
-                mIvForth = itemView.findViewById(R.id.img_forth);
-                mIvFifth = itemView.findViewById(R.id.img_fifth);
-
+        @Override
+        public void onClick(View view) {
+//根据RecyclerView获得当前View的位置
+            int position = recyclerView.getChildAdapterPosition(view);
+            //程序执行到此，会去执行具体实现的onItemClick()方法
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(recyclerView, view, position, "data===");
             }
+            Toast.makeText(getContext(), "onClick position == "+position, Toast.LENGTH_SHORT).show();
+            Logger.d("onClick position =="+position);
+
+            Intent intent = new Intent(getContext(), RepositoryActivity.class);
+            intent.putExtra("url", mDatas.get(position).getUrl());
+            startActivity(intent);
         }
+
 
     }
 
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView mTvName;
+        private final TextView mTvDesc;
+        private final TextView mTvStar;
+        private final TextView mTvFork;
+        private final TextView mTvLanguage;
+        private final TextView mTvCurrentStars;
+        private final ImageView mIvFirst;
+        private final ImageView mIvSecond;
+        private final ImageView mIvThird;
+        private final ImageView mIvForth;
+        private final ImageView mIvFifth;
+
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mTvName = itemView.findViewById(R.id.tv_name);
+            mTvDesc = itemView.findViewById(R.id.tv_desc);
+            mTvCurrentStars = itemView.findViewById(R.id.tv_current_period_stars);
+            mTvStar = itemView.findViewById(R.id.tv_star);
+            mTvFork = itemView.findViewById(R.id.tv_fork);
+            mTvLanguage = itemView.findViewById(R.id.tv_language);
+            mIvFirst = itemView.findViewById(R.id.img_first);
+            mIvSecond = itemView.findViewById(R.id.img_second);
+            mIvThird = itemView.findViewById(R.id.img_third);
+            mIvForth = itemView.findViewById(R.id.img_forth);
+            mIvFifth = itemView.findViewById(R.id.img_fifth);
+
+        }
+    }
+
+
+    private OnItemClickListener onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    /**
+     * 定义RecyclerView选项单击事件的回调接口
+     */
+    public interface OnItemClickListener{
+        //参数（父组件，当前单击的View,单击的View的位置，数据）
+        void onItemClick(RecyclerView parent,View view, int position, String data);
+    }
+/*
+    */
+/**
+     *   将RecycleView附加到Adapter上
+     *//*
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView= recyclerView;
+    }
+    */
+/**
+     *   将RecycleView从Adapter解除
+     *//*
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
+    }
+*/
 
 }
 
