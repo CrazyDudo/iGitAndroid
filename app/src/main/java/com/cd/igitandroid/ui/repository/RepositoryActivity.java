@@ -18,7 +18,7 @@ public class RepositoryActivity extends AppCompatActivity {
 
     private void initData() {
         String url = getIntent().getStringExtra("url");
-        MarkdownView markdownView = (MarkdownView) findViewById(R.id.markdown_view_readme);
+        MarkdownView markdownView = findViewById(R.id.markdown_view_readme);
         markdownView.loadUrl(url);
     }
 }

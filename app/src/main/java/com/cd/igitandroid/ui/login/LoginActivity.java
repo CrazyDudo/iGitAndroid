@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         Toast.makeText(this, "onLoginError:" + error, Toast.LENGTH_SHORT).show();
     }
 
-
     @OnClick({R.id.edt_user_name, R.id.btn_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {

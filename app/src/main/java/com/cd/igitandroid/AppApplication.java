@@ -12,8 +12,6 @@ import com.orhanobut.logger.Logger;
 public class AppApplication extends Application {
     private static Application mApplication;
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,11 +29,6 @@ public class AppApplication extends Application {
     }
 
     public static Application getContext() {
-
-
         return mApplication;
     }
-
-
-
 }

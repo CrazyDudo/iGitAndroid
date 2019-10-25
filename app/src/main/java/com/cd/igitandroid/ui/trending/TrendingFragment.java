@@ -120,7 +120,6 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
         recyclerView.setAdapter(mAdapter = new TrendingAdapter());
 
 
-
     }
 
 
@@ -144,9 +143,8 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
         }
 
 
-
         @Override
-        public void onBindViewHolder(@NonNull  MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             TrendingBean trendingBean = mDatas.get(position);
             holder.mTvName.setText(trendingBean.getAuthor() + "/" + trendingBean.getName());
             holder.mTvDesc.setText(trendingBean.getDescription());
@@ -176,15 +174,13 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
 
         @Override
         public void onClick(View view) {
-//根据RecyclerView获得当前View的位置
+            //根据RecyclerView获得当前View的位置
             int position = recyclerView.getChildAdapterPosition(view);
             //程序执行到此，会去执行具体实现的onItemClick()方法
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(recyclerView, view, position, "data===");
             }
-            Toast.makeText(getContext(), "onClick position == "+position, Toast.LENGTH_SHORT).show();
-            Logger.d("onClick position =="+position);
-
+            Logger.d("onClick position ==" + position);
             Intent intent = new Intent(getContext(), RepositoryActivity.class);
             intent.putExtra("url", mDatas.get(position).getUrl());
             startActivity(intent);
@@ -227,22 +223,24 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
 
 
     private OnItemClickListener onItemClickListener;
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     /**
      * 定义RecyclerView选项单击事件的回调接口
      */
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         //参数（父组件，当前单击的View,单击的View的位置，数据）
-        void onItemClick(RecyclerView parent,View view, int position, String data);
+        void onItemClick(RecyclerView parent, View view, int position, String data);
     }
-/*
-    */
+    /*
+     */
 /**
-     *   将RecycleView附加到Adapter上
-     *//*
+ *   将RecycleView附加到Adapter上
+ */
+/*
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -251,8 +249,9 @@ public class TrendingFragment extends BaseFragment implements TrendingContract.V
     }
     */
 /**
-     *   将RecycleView从Adapter解除
-     *//*
+ *   将RecycleView从Adapter解除
+ */
+/*
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
